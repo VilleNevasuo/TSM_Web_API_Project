@@ -49,6 +49,7 @@ def main():
             ah_id = el["auctionHouseId"]
 
     print(item_data[1])
+    print(item_data[2])
 
 
 main()
