@@ -5,6 +5,10 @@ import json
 def authenticate():
 
     url = 'https://auth.tradeskillmaster.com/oauth2/token'
+
+    with open('credentials.txt') as f:
+        token = f.read()
+
     myobj = {
         "client_id": "c260f00d-1071-409a-992f-dda2e5498536",
 
@@ -12,7 +16,7 @@ def authenticate():
 
         "scope": "app:realm-api app:pricing-api",
 
-        "token": "MOhLoec7WLd9G-ewfW7B9BsPFzms_Y34"
+        "token": f"{token}"
     }
 
     x = requests.post(url, json=myobj)
