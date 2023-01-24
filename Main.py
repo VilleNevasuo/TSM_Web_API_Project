@@ -10,16 +10,58 @@ ca = certifi.where()
 load_dotenv()
 
 
-def insert_database(data):
+def insert_database(items):
 
     client = MongoClient(
-        "mongodb+srv://wildu55:"+os.environ["dbpassword"]+"@tsmtest.f0cnqjq.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-    print(client.list_database_names())
-    db = client.ahdata
+        "mongodb+srv://paulnarhi:"+os.environ["dbpassword"]+"@ahdatatest.7cfmuia.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+    #print(db.list_database_names())
+    database = client["AHdatabase"]
 
-    ah = db.itemdata
+    minBuytoutCol = database["minBuyout"]
+    quantityCol = database["quantity"]
+    marketValuesCol = database["marketValue"]
+    historicalCol = database["historical"]
+    numAuctionsCol = database["numAuctions"]
 
-    ah.insert_one(data)
+    minBuyouts = []
+    quantities = []
+    marketValues = []
+    historicals = []
+    numAuctions = []
+
+    for item in items:
+        minBuyouts.append({
+            "itemId": item["itemId"],
+            "Date": datetime.datetime.utcnow(),
+            "value": item["minBuyout"]
+        })
+        quantities.append({
+            "itemId": item["itemId"],
+            "Date": datetime.datetime.utcnow(),
+            "value": item["quantity"]
+        })
+        marketValues.append({
+            "itemId": item["itemId"],
+            "Date": datetime.datetime.utcnow(),
+            "value": item["marketValue"]
+        })
+        historicals.append({
+            "itemId": item["itemId"],
+            "Date": datetime.datetime.utcnow(),
+            "value": item["historical"]
+        })
+        numAuctions.append({
+            "itemId": item["itemId"],
+            "Date": datetime.datetime.utcnow(),
+            "value": item["numAuctions"]
+        })
+
+    minBuytoutCol.insert_many(minBuyouts)
+    quantityCol.insert_many(quantities)
+    marketValuesCol.insert_many(marketValues)
+    historicalCol.insert_many(historicals)
+    numAuctionsCol.insert_many(numAuctions)
+
 
 
 def authenticate():
@@ -79,9 +121,8 @@ def main():
     #     if line["minBuyout"] > 0:
     #         print(line["itemId"])
 
-    print(item_data[129])
 
-#    insert_database(item_data)
+    insert_database(item_data)
  
 
 main()
