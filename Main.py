@@ -12,7 +12,7 @@ load_dotenv()
 
 def insert_database(items):
 
-    client = pymongo.MongoClient("mongodb+srv://"
+    client = MongoClient("mongodb+srv://"
                                  + os.environ["dbusername"]
                                  + ":"+os.environ["dbpassword"]
                                  + "@ahdatatest.7cfmuia.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
