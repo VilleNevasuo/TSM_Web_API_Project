@@ -12,9 +12,10 @@ load_dotenv()
 
 def insert_database(items):
 
-    client = MongoClient(
-        "mongodb+srv://paulnarhi:"+os.environ["dbpassword"]+"@ahdatatest.7cfmuia.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-    #print(db.list_database_names())
+    client = pymongo.MongoClient("mongodb+srv://"
+                                 + os.environ["dbusername"]
+                                 + ":"+os.environ["dbpassword"]
+                                 + "@ahdatatest.7cfmuia.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
     database = client["AHdatabase"]
 
     minBuytoutCol = database["minBuyout"]
@@ -61,7 +62,6 @@ def insert_database(items):
     marketValuesCol.insert_many(marketValues)
     historicalCol.insert_many(historicals)
     numAuctionsCol.insert_many(numAuctions)
-
 
 
 def authenticate():
@@ -121,8 +121,7 @@ def main():
     #     if line["minBuyout"] > 0:
     #         print(line["itemId"])
 
-
     insert_database(item_data)
- 
+
 
 main()
