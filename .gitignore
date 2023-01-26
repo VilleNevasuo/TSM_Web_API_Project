@@ -50,3 +50,4 @@ dist/**
 *.i18n.json
 .vscode/
 env/
+env
