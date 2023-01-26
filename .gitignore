@@ -49,3 +49,4 @@ dist/**
 *.nls.*.json
 *.i18n.json
 .vscode/
+env/
