@@ -12,6 +12,7 @@ load_dotenv()
 
 def insert_database(items):
 
+    
     client = MongoClient("mongodb+srv://"
                                  + os.environ["dbusername"]
                                  + ":"+os.environ["dbpassword"]
